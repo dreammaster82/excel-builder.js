@@ -40,7 +40,7 @@ var Factory = {
         workbook.generateFilesAsync({
             success: function (files) {
 
-                var worker = new Worker(require.toUrl('./Excel/ZipWorker.js'));
+                var worker = new Worker('./ZipWorker.js');
                 worker.addEventListener('message', function(event) {
                     if(event.data.status === 'done') {
                         options.success(event.data.data);
@@ -48,7 +48,7 @@ var Factory = {
                 });
                 worker.postMessage({
                     files: files,
-                    ziplib: require.toUrl('JSZip'),
+                    ziplib: './JSZip.js',
                     base64: (!options || options.base64 !== false)
                 });
             },
